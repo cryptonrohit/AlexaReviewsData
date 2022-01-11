@@ -14,7 +14,7 @@ class AlexaReviewsController {
         const rating = req.query.rating as unknown as number;
         const date = req.query.date as unknown as Date;
         const result = await getAlexaReviewsService.execute({ storeType, rating, date });
-        res.status(result.status).send(result.data);
+        res.status(result.status).send({totalCount: result.totalCount, data: result.data});
     }
     async getReviewsDataByRating(req: Request, res: Response) {
         const rating = req.params.rating as unknown as number;

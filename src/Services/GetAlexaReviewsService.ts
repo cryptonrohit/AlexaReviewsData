@@ -7,7 +7,7 @@ class GetAlexaReviewsService {
     async execute(data: IGetUserReviewsModel): Promise<IHttpResponseModel> {
         const response = await getAllReviews.get(data);
         const httpStatusData = getHttpStatusData(response.status);
-        return {data: response.data, status: httpStatusData.statusCode};
+        return {data: response.data, totalCount: response.totalCount, status: httpStatusData.statusCode};
     }
 }
 const getAlexaReviewsService = new GetAlexaReviewsService();

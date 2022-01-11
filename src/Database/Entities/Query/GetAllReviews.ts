@@ -24,9 +24,9 @@ class GetAllReviews {
             const reviewsData: IInsertUserReviewsModel[] = await queryBuilder.then(res => res); 
             if (reviewsData.length <= 0) {
                 console.error(`[DB] No reviews available.`);
-                return { data: [], status: Operation.NoDataFound };
+                return { data: [], totalCount: reviewsData.length, status: Operation.NoDataFound };
             }
-            return { data: reviewsData, status: Operation.Success };
+            return { data: reviewsData, totalCount: reviewsData.length, status: Operation.Success };
         } catch (error) {
             console.error("[DB] Error while fetching reviews data.", error);
             return { status: Operation.Error };
