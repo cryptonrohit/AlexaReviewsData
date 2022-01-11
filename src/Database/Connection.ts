@@ -5,7 +5,10 @@ class DBConnection {
     connectionToDB() {
         const configData = {
             client: "pg",
-            connection: process.env.DATABASE_URL
+            connection: process.env.DATABASE_URL,
+            ssl: { 
+                rejectUnauthorized: false 
+            }
         }
         return Knex(configData);
     }
