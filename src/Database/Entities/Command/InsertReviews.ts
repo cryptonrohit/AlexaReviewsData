@@ -1,10 +1,10 @@
-import { IUserReviewsModel } from "../../../Model/IUserReviewsModel";
+import { IInsertUserReviewsModel } from "../../../Model/IInsertUserReviewsModel";
 import { Operation } from "../../../Model/Operation";
 import db from "../../Configuration";
 import { USER_REVIEWS_DATA } from "../../TableNames/TableNames";
 
 class InsertReviews {
-    async insert(userReviewsData: IUserReviewsModel[]): Promise<Operation> {
+    async insert(userReviewsData: IInsertUserReviewsModel[]): Promise<Operation> {
         try {
             await db.DBInstance().dbConnector
                 .insert(userReviewsData)
