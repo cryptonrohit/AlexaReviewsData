@@ -1,16 +1,11 @@
 import Knex from "knex";
 
+// connection URL format = "postgres://user:password@host:port/database"
 class DBConnection {
     connectionToDB() {
         const configData = {
             client: "pg",
-            connection: {
-                host: "localhost",
-                user: "postgres",
-                password: "crypton10",
-                database: "postgres",
-                port: 5432
-            }
+            connection: process.env.DATABASE_URL
         }
         return Knex(configData);
     }

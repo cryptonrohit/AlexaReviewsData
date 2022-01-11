@@ -2,7 +2,7 @@ import express from "express";
 import upload from "express-fileupload";
 const app = express();
 app.use(upload());
-const port = 7656;
+const port = process.env.PORT || 8080;
 
 app.listen(port, ()=> {
     console.log(`listening on port: ${port}`);
