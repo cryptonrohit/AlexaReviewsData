@@ -1,8 +1,11 @@
 import { Request, Response } from "express";
+import alexaReviewsService from "../Services/AlexaReviewsService";
 
 class AlexaReviewsController {
-    insertReviewsData(req: Request, res: Response) {
-
+    async insertReviewsData(req: Request, res: Response) {
+        const uploadedData = (req['files'].reviewsFile.data.toString());
+        const result = await alexaReviewsService.execute(uploadedData);
+        res.status(result.statusCode).send(result.data);
     }
 }
 const alexaReviewsController = new AlexaReviewsController();
