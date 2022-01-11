@@ -2,6 +2,6 @@ import { IInsertUserReviewsModel } from "./IInsertUserReviewsModel";
 import { Operation } from "./Operation";
 
 export interface IGetUserReviewsResponseModel {
-    data: IInsertUserReviewsModel[] | [];
+    data?: IInsertUserReviewsModel[] | [];
     status: Operation
 }

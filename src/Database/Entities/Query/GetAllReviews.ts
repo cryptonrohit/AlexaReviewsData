@@ -7,7 +7,8 @@ import { USER_REVIEWS_DATA } from "../../TableNames/TableNames";
 
 class GetAllReviews {
     async get(dataToGet: IGetUserReviewsModel): Promise<IGetUserReviewsResponseModel> {
-        const queryBuilder = db.DBInstance().dbConnector
+        try {
+            const queryBuilder = db.DBInstance().dbConnector
             .select("*").from(USER_REVIEWS_DATA)
             .where((builder) => {
                 if (dataToGet.storeType) {
@@ -20,13 +21,16 @@ class GetAllReviews {
                     builder.where(`${USER_REVIEWS_DATA}.reviewed_date`, dataToGet.date);
                 }
             })
-        const reviewsData: IInsertUserReviewsModel[] = await queryBuilder.then(res => res); 
-        if (reviewsData.length < 0) {
-            console.error(`[DB] No reviews available.`);
-            return { data: [], status: Operation.NoDataFound };
-        } else {
+            const reviewsData: IInsertUserReviewsModel[] = await queryBuilder.then(res => res); 
+            if (reviewsData.length < 0) {
+                console.error(`[DB] No reviews available.`);
+                return { data: [], status: Operation.NoDataFound };
+            }
             return { data: reviewsData, status: Operation.Success };
-        }   
+        } catch (error) {
+            console.error("[DB] Error while fetching reviews data.", error);
+            return { status: Operation.Error };
+        } 
     }       
 }
 const getAllReviews = new GetAllReviews();
