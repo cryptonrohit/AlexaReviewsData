@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { acceptedRatings, acceptedReviewSources, invalidDate } from "../Shared/Constants";
+import { acceptedRatings, acceptedReviewSources } from "../Shared/Constants";
 
 class GetReviewsDataMiddleware {
     validate(req: Request, res: Response, next: NextFunction) {
