@@ -22,7 +22,7 @@ class GetAllReviews {
                 }
             })
             const reviewsData: IInsertUserReviewsModel[] = await queryBuilder.then(res => res); 
-            if (reviewsData.length < 0) {
+            if (reviewsData.length <= 0) {
                 console.error(`[DB] No reviews available.`);
                 return { data: [], status: Operation.NoDataFound };
             }
