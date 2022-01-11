@@ -1,5 +1,6 @@
 import { Knex } from "knex";
 import dbConnection from "./Connection";
+import dbTableHandler from "./TableHandler";
 /**
  * Using singleton pattern so that we can have only one instance of db and we don't need to create instance again and again.
  */
@@ -17,7 +18,7 @@ class DBConfiguration {
     }
 
     async init(){
-        // creating tables
+        await dbTableHandler.handle(this.dbConnector);
     }
 }
 export default DBConfiguration;
