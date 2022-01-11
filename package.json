@@ -1,0 +1,19 @@
+{
+  "name": "alexareviewsdata",
+  "version": "1.0.0",
+  "description": "Storing reviews for alexa app for itunes and googleplaystore",
+  "main": "./main.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cryptonrohit/AlexaReviewsData.git"
+  },
+  "author": "palrohit100@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cryptonrohit/AlexaReviewsData/issues"
+  },
+  "homepage": "https://github.com/cryptonrohit/AlexaReviewsData#readme"
+}
