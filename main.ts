@@ -10,7 +10,9 @@ app.listen(port, ()=> {
 
 import alexaReviewsController from "./src/Controller/AlexaReviewsController";
 import db from "./src/Database/Configuration";
+import getReviewsDataMiddleware from "./src/Middleware/GetReviewsDataMiddleware";
 import insertReviewsDataMiddleware from "./src/Middleware/InsertReviewsDataMiddleware";
+
 async function main() {
     try {
         await db.DBInstance().init();
@@ -19,6 +21,8 @@ async function main() {
         console.error("Issue getting DB up", error);
     }
 }
+
 app.post("/alexaReviews", insertReviewsDataMiddleware.validate, alexaReviewsController.insertReviewsData);
-app.get("/alexaReviews", alexaReviewsController.getReviewsData);
+app.get("/alexaReviews", getReviewsDataMiddleware.validate, alexaReviewsController.getReviewsData);
+
 main();
