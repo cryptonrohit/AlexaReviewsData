@@ -20,4 +20,5 @@ async function main() {
     }
 }
 app.post("/alexaReviews", insertReviewsDataMiddleware.validate, alexaReviewsController.insertReviewsData);
+app.get("/alexaReviews", alexaReviewsController.getReviewsData);
 main();
