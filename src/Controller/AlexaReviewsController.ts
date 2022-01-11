@@ -6,7 +6,7 @@ class AlexaReviewsController {
     async insertReviewsData(req: Request, res: Response) {
         const uploadedData = req['files'].reviewsFile.data.toString();
         const result = await insertAlexaReviewsService.execute(uploadedData);
-        res.status(result.statusCode).send(result.outputData);
+        res.status(result.status).send(result.data);
     }
     async getReviewsData(req: Request, res: Response) {
         const storeType = req.query.storeType as string;
