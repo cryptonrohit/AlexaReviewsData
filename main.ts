@@ -10,6 +10,7 @@ app.listen(port, ()=> {
 
 import alexaReviewsController from "./src/Controller/AlexaReviewsController";
 import db from "./src/Database/Configuration";
+import getReviewsDataByRatingMiddleware from "./src/Middleware/GetReviewsDataByRatingMiddleware";
 import getReviewsDataMiddleware from "./src/Middleware/GetReviewsDataMiddleware";
 import insertReviewsDataMiddleware from "./src/Middleware/InsertReviewsDataMiddleware";
 
@@ -24,6 +25,6 @@ async function main() {
 
 app.post("/alexaReviews", insertReviewsDataMiddleware.validate, alexaReviewsController.insertReviewsData);
 app.get("/alexaReviews", getReviewsDataMiddleware.validate, alexaReviewsController.getReviewsData);
-app.get("/alexaReviews/:rating", alexaReviewsController.getReviewsDataByRating);
+app.get("/alexaReviews/:rating", getReviewsDataByRatingMiddleware.validate, alexaReviewsController.getReviewsDataByRating);
 
 main();
