@@ -7,7 +7,7 @@ class DBConnection {
             connection: {
                 host: "localhost",
                 user: "postgres",
-                password: "postgres",
+                password: "crypton10",
                 database: "postgres",
                 port: 5432
             }
