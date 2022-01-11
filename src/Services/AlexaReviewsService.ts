@@ -1,4 +1,6 @@
 import insertReviews from "../Database/Entities/Command/InsertReviews";
+import { Operation } from "../Model/Operation";
+import { getHttpStatusData } from "../Shared/GetHttpStatus";
 
 class AlexaReviewsService {
     async execute(uploadedData: string) {
@@ -13,11 +15,11 @@ class AlexaReviewsService {
                 uploadedData = `[${uploadedData}]`
             }
             const dataToInsert = JSON.parse(uploadedData);
-            await insertReviews.insert(dataToInsert);
-            return {statusCode: 200, data: "Created"};
+            const response = await insertReviews.insert(dataToInsert);
+            return getHttpStatusData(response);
         } catch (error) {
-            console.log("Some issue occured while parsing.");
-            return {statusCode: 400, data: "Invalid JSON format"};
+            console.log("Some issue occured while parsing with error: ", error);
+            return getHttpStatusData(Operation.BadRequest);
         }        
     }
 }

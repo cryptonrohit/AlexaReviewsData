@@ -1,4 +1,5 @@
 export enum Operation {
     Error = "Error",
-    Created = "Created"
+    Created = "Created",
+    BadRequest = "BadRequest"
 }
