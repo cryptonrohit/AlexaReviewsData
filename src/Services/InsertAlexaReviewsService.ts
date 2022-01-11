@@ -2,7 +2,7 @@ import insertReviews from "../Database/Entities/Command/InsertReviews";
 import { Operation } from "../Model/Operation";
 import { getHttpStatusData } from "../Shared/GetHttpStatus";
 
-class AlexaReviewsService {
+class InsertAlexaReviewsService {
     async execute(uploadedData: string) {
         try {
             if (uploadedData.includes("\n")) {
@@ -23,5 +23,5 @@ class AlexaReviewsService {
         }        
     }
 }
-const alexaReviewsService = new AlexaReviewsService();
-export default alexaReviewsService;
+const insertAlexaReviewsService = new InsertAlexaReviewsService();
+export default insertAlexaReviewsService;
