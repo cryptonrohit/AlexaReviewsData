@@ -24,5 +24,6 @@ async function main() {
 
 app.post("/alexaReviews", insertReviewsDataMiddleware.validate, alexaReviewsController.insertReviewsData);
 app.get("/alexaReviews", getReviewsDataMiddleware.validate, alexaReviewsController.getReviewsData);
+app.get("/alexaReviews/:rating", alexaReviewsController.getReviewsDataByRating);
 
 main();
