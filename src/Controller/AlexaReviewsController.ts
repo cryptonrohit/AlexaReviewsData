@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import getAlexaReviewsService from "../Services/GetAlexaReviewsService";
 import getAlexaReviewsServiceByRating from "../Services/GetAlexaReviewsServiceByRating";
+import getMonthlyAverageRatingsService from "../Services/GetMonthlyAverageRatingsService";
 import insertAlexaReviewsService from "../Services/InsertAlexaReviewsService";
 
 class AlexaReviewsController {
@@ -17,6 +18,11 @@ class AlexaReviewsController {
         const result = await getAlexaReviewsService.execute({ storeType, rating, date });
         res.status(result.status);
         res.send({totalCount: result.totalCount, data: result.data});
+    }
+    async getMonthlyAverageRatings(req: Request, res: Response) {
+        const result = await getMonthlyAverageRatingsService.execute();
+        res.status(result.status);
+        res.send(result.data);
     }
     async getReviewsDataByRating(req: Request, res: Response) {
         const rating = req.params.rating as unknown as number;
