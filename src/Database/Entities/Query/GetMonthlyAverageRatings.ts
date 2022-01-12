@@ -1,9 +1,10 @@
+import { IGetUserReviewsResponseModel } from "../../../Model/IGetUserReviewsResponseModel";
 import { Operation } from "../../../Model/Operation";
 import db from "../../Configuration";
 import { USER_REVIEWS_DATA } from "../../TableNames/TableNames";
 
 class GetMonthlyAverageRatings {
-    async get() {
+    async get(): Promise<IGetUserReviewsResponseModel> {
         try {
             const result = await db.DBInstance().dbConnector
                 .raw(`select review_source, 
