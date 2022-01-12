@@ -8,12 +8,12 @@ class GetMonthlyAverageRatings {
         try {
             const result = await db.DBInstance().dbConnector
                 .raw(`select review_source, 
-                    cast(Avg(rating) as decimal(10,2)), 
-                    extract (month from reviewed_date) as mnth, 
-                    extract(year from reviewed_date) as yr
+                    cast(Avg(rating) as decimal(10,2)) as averagerating, 
+                    extract (month from reviewed_date) as month, 
+                    extract(year from reviewed_date) as year
                     from "${USER_REVIEWS_DATA}"
-                    group by review_source, mnth, yr 
-                    order by mnth, yr`);
+                    group by review_source, month, year 
+                    order by month, year`);
             if (result.rowCount <= 0) {
                 console.error("[DB] No reviews available.");
                 return { data: [], status: Operation.NoDataFound };
