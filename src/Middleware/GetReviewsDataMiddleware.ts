@@ -7,14 +7,20 @@ class GetReviewsDataMiddleware {
         const rating = req.query.rating as unknown as number;
         const date = req.query.date as unknown as string;
         if (storeType && !acceptedReviewSources.includes(storeType)) {
-            return res.status(400).send("Please enter a valid store Type i.e either iTunes or GooglePlayStore. Please follow case sensitive.");
+            res.status(400);
+            res.send("Please enter a valid store Type i.e either iTunes or GooglePlayStore. Please follow case sensitive.");
+            return;
         }
         if (rating && !acceptedRatings.includes(Number(rating))) {
-            return res.status(400).send("Please enter a rating between 1-5.");
+            res.status(400);
+            res.send("Please enter a rating between 1-5.");
+            return;
         }
         const y = Date.parse(date)
         if (date && isNaN(Date.parse(date))) {
-            return res.status(400).send("Please enter a valid Date format");
+            res.status(400);
+            res.send("Please enter a valid Date format");
+            return;
         }
 
         next();
