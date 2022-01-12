@@ -16,7 +16,6 @@ class GetReviewsDataMiddleware {
             res.send("Please enter a rating between 1-5.");
             return;
         }
-        const y = Date.parse(date)
         if (date && isNaN(Date.parse(date))) {
             res.status(400);
             res.send("Please enter a valid Date format");
