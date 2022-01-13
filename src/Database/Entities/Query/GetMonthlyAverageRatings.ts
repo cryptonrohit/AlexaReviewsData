@@ -1,11 +1,11 @@
 import { IGetUserReviewsResponseModel } from "../../../Model/IGetUserReviewsResponseModel";
 import { Operation } from "../../../Model/Operation";
-import { StoreType } from "../../../Model/StoreType";
 import db from "../../Configuration";
 import { USER_REVIEWS_DATA } from "../../TableNames/TableNames";
 
 class GetMonthlyAverageRatings {
-    async get(storeType: StoreType): Promise<IGetUserReviewsResponseModel> {
+    async get(storeType: string): Promise<IGetUserReviewsResponseModel> {
+        storeType = storeType ? storeType : "";
         try {
             const result = await db.DBInstance().dbConnector
                 .raw(`select review_source, 
@@ -13,8 +13,8 @@ class GetMonthlyAverageRatings {
                     extract (month from reviewed_date) as month, 
                     extract(year from reviewed_date) as year
                     from "${USER_REVIEWS_DATA}"
+                    where review_source like '%${storeType}%'
                     group by review_source, month, year 
-                    having review_source = "${storeType}"
                     order by month, year`);
             if (result.rowCount <= 0) {
                 console.error("[DB] No reviews available.");
