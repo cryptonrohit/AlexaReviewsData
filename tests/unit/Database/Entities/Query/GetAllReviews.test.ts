@@ -83,6 +83,7 @@ describe("GetAllReviews tests", () => {
 
         // Assert
         expect(actualResult).to.eql(expectedResult);
+        sinon.assert.calledWith(consoleStub, "[DB] No reviews available.");
     });
 
     it("get_WhenDBError_ShouldReturnError", async () => {
