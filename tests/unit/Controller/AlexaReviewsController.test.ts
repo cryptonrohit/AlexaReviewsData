@@ -2,6 +2,7 @@ import sinon, { SinonStub } from "sinon";
 import alexaReviewsController from "../../../src/Controller/AlexaReviewsController";
 import getAlexaReviewsService from "../../../src/Services/GetAlexaReviewsService";
 import getAlexaReviewsServiceByRating from "../../../src/Services/GetAlexaReviewsServiceByRating";
+import getMonthlyAverageRatingsService from "../../../src/Services/GetMonthlyAverageRatingsService";
 import insertAlexaReviewsService from "../../../src/Services/InsertAlexaReviewsService";
 
 describe("AlexaReviewsController tests", () => {
@@ -10,6 +11,7 @@ describe("AlexaReviewsController tests", () => {
     let insertAlexaReviewsServiceStub: SinonStub;
     let getAlexaReviewsServiceStub: SinonStub;
     let getAlexaReviewsServiceByRatingStub: SinonStub;
+    let getMonthlyAverageRatingsServiceStub: SinonStub;
     const reviewsTestData = {
         "totalCount": 2,
         "data": [
@@ -58,6 +60,21 @@ describe("AlexaReviewsController tests", () => {
         ]
     }
 
+    const monthlyAvgRatingsTestData = [
+        {
+            "review_source": "GooglePlayStore",
+            "averagerating": "2.94",
+            "month": 1,
+            "year": 2018
+        },
+        {
+            "review_source": "iTunes",
+            "averagerating": "1.76",
+            "month": 1,
+            "year": 2018
+        }
+    ]
+
     beforeEach(() => {
         request = {
             query: {},
@@ -72,12 +89,14 @@ describe("AlexaReviewsController tests", () => {
         insertAlexaReviewsServiceStub = sinon.stub(insertAlexaReviewsService, "execute");
         getAlexaReviewsServiceStub = sinon.stub(getAlexaReviewsService, "execute");
         getAlexaReviewsServiceByRatingStub = sinon.stub(getAlexaReviewsServiceByRating, "execute");
+        getMonthlyAverageRatingsServiceStub = sinon.stub(getMonthlyAverageRatingsService, "execute");
     })
 
     afterEach(() => {
         insertAlexaReviewsServiceStub.restore();    
         getAlexaReviewsServiceStub.restore();
         getAlexaReviewsServiceByRatingStub.restore();
+        getMonthlyAverageRatingsServiceStub.restore();
     });
 
     it("insertReviewsData_WhenReviewsInserted_ShouldReturnCreatedWithStatusCode201", async () => {
@@ -202,6 +221,44 @@ describe("AlexaReviewsController tests", () => {
 
         // Act
         await alexaReviewsController.getReviewsDataByRating(request, response);
+    
+        // Assert
+        sinon.assert.calledWith(response.status, 500);
+    });
+
+    it("getMonthlyAverageRatings_WhenDataIsThere_ShouldReturnStatusCode200", async () => {
+        // Arrange
+        const dataToReturn = {data: monthlyAvgRatingsTestData, status: 200};
+        getMonthlyAverageRatingsServiceStub.returns(dataToReturn);
+
+        // Act
+        await alexaReviewsController.getMonthlyAverageRatings(request, response);
+    
+        // Assert
+        sinon.assert.calledWith(response.status, dataToReturn.status);
+        sinon.assert.calledWith(response.send, dataToReturn.data);
+    });
+
+    it("getMonthlyAverageRatings_WhenNoDataFound_ShouldReturnStatusCode404", async () => {
+        // Arrange
+        const dataToReturn = {data: [], status: 404};
+        getMonthlyAverageRatingsServiceStub.returns(dataToReturn);
+
+        // Act
+        await alexaReviewsController.getMonthlyAverageRatings(request, response);
+    
+        // Assert
+        sinon.assert.calledWith(response.status, dataToReturn.status);
+        sinon.assert.calledWith(response.send, dataToReturn.data);
+    });
+
+    it("getMonthlyAverageRatings_WhenDBError_ShouldReturnStatusCode500", async () => {
+        // Arrange
+        const dataToReturn = {status: 500};
+        getMonthlyAverageRatingsServiceStub.returns(dataToReturn);
+
+        // Act
+        await alexaReviewsController.getMonthlyAverageRatings(request, response);
     
         // Assert
         sinon.assert.calledWith(response.status, 500);
