@@ -12,7 +12,7 @@ class DBConfiguration {
     }
     public static DBInstance(): DBConfiguration {
         if (!DBConfiguration.dbInstance) {
-            return new DBConfiguration;
+            DBConfiguration.dbInstance = new DBConfiguration();
         }
         return DBConfiguration.dbInstance;
     }
