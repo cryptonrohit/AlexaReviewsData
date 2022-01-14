@@ -12,6 +12,9 @@ class UserReviewsTable {
             table.string("title");
             table.string("product_name");
             table.timestamp("reviewed_date");
+            table.index( ["review_source"], "UserReviewsData_review_source_Index");
+            table.index( ["rating"], "UserReviewsData_rating_Index");
+            table.index( ["reviewed_date"], "UserReviewsData_reviewed_date_Index");
         })
     }
 }
