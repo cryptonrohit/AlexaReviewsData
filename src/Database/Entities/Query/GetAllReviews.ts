@@ -17,8 +17,11 @@ class GetAllReviews {
                 if (dataToGet.rating) {
                     builder.where(`${USER_REVIEWS_DATA}.rating`, dataToGet.rating);
                 }
-                if (dataToGet.date) {
-                    builder.where(`${USER_REVIEWS_DATA}.reviewed_date`, dataToGet.date);
+                if (dataToGet.from) {
+                    builder.where(`${USER_REVIEWS_DATA}.reviewed_date`, ">=", dataToGet.from);
+                }
+                if (dataToGet.to) {
+                    builder.where(`${USER_REVIEWS_DATA}.reviewed_date`, "<=", dataToGet.to);
                 }
             })
             const reviewsData: IInsertUserReviewsModel[] = await queryBuilder.then(res => res); 

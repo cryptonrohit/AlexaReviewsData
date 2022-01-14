@@ -64,9 +64,9 @@ describe("GetReviewsDataMiddleware tests", () => {
         sinon.assert.calledWith(response.send, "Please enter a rating between 1-5.");
     });
 
-    it("validate_WhenDateIsInInvalidFormat_ShouldReturnStatusCode400", async () => {
+    it("validate_WhenFromDateIsInInvalidFormat_ShouldReturnStatusCode400", async () => {
         // Arrange
-        request.query = {date: "2017-12-33T00:00:00.000Z"} 
+        request.query = {from: "2017-12-33T00:00:00.000Z"} 
 
         // Act
         getReviewsDataMiddleware.validate(request, response, next)
@@ -74,5 +74,29 @@ describe("GetReviewsDataMiddleware tests", () => {
         // Assert
         sinon.assert.calledWith(response.status, 400);
         sinon.assert.calledWith(response.send, "Please enter a valid Date format");
+    });
+
+    it("validate_WhenToDateIsInInvalidFormat_ShouldReturnStatusCode400", async () => {
+        // Arrange
+        request.query = {to: "2017-12-33T00:00:00.000Z"} 
+
+        // Act
+        getReviewsDataMiddleware.validate(request, response, next)
+    
+        // Assert
+        sinon.assert.calledWith(response.status, 400);
+        sinon.assert.calledWith(response.send, "Please enter a valid Date format");
+    });
+
+    it("validate_WhenFromGreaterThanTo_ShouldReturnStatusCode400", async () => {
+        // Arrange
+        request.query = {from: "2018-12-30T00:00:00.000Z", to: "2017-12-25T00:00:00.000Z"} 
+
+        // Act
+        getReviewsDataMiddleware.validate(request, response, next)
+    
+        // Assert
+        sinon.assert.calledWith(response.status, 400);
+        sinon.assert.calledWith(response.send, "to parameter should be greater or equal than from parameter");
     });
 })

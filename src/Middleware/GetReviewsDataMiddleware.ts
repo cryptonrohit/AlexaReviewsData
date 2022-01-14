@@ -5,7 +5,8 @@ class GetReviewsDataMiddleware {
     validate(req: Request, res: Response, next: NextFunction) {
         const storeType = req.query.storeType as string;
         const rating = req.query.rating as unknown as number;
-        const date = req.query.date as unknown as string;
+        const from = req.query.from as unknown as string;
+        const to = req.query.to as unknown as string;
         if (storeType && !acceptedReviewSources.includes(storeType)) {
             res.status(400);
             res.send("Please enter a valid store Type i.e either iTunes or GooglePlayStore. Please follow case sensitive.");
@@ -16,9 +17,19 @@ class GetReviewsDataMiddleware {
             res.send("Please enter a rating between 1-5.");
             return;
         }
-        if (date && isNaN(Date.parse(date))) {
+        if (from && isNaN(Date.parse(from))) {
             res.status(400);
             res.send("Please enter a valid Date format");
+            return;
+        }
+        if (to && isNaN(Date.parse(to))) {
+            res.status(400);
+            res.send("Please enter a valid Date format");
+            return;
+        }
+        if (from && to && new Date(from).getTime() - new Date(to).getTime() > 0) {
+            res.status(400);
+            res.send("to parameter should be greater or equal than from parameter");
             return;
         }
 

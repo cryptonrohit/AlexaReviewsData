@@ -1,5 +1,6 @@
 export interface IGetUserReviewsModel {
     storeType: string;
     rating: number;
-    date: Date;
+    from: Date;
+    to: Date;
 }

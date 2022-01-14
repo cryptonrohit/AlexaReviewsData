@@ -14,7 +14,8 @@ describe("GetAllReviews tests", () => {
     const filterTestData: IGetUserReviewsModel  = {
         storeType: "iTunes",
         rating: 4,
-        date: "2017-12-30T00:00:00.000Z" as unknown as Date
+        from: "2018-01-01T00:00:00.000Z" as unknown as Date,
+        to: "2018-05-01T00:00:00.000Z" as unknown as Date
     }
 
     const reviewsTestData = [
@@ -25,16 +26,16 @@ describe("GetAllReviews tests", () => {
             "rating": 4,
             "title": "Excelente",
             "product_name": "Amazon Alexa",
-            "reviewed_date": "2018-01-12T02:27:03.000Z"
+            "reviewed_date": "2018-01-01T00:00:00.000Z"
         },
         {
             "review": "Cannot fix connection glitches without this-also fix connection glitches \n\nSmart things sees my light and Alexa doesn’t :(\n\n*update new devices “unresponsive” each day...they are working fine in SmartThings. No way to delete disabled devices. Very poor.",
             "author": "Ranchorat",
             "review_source": "iTunes",
-            "rating": 1,
+            "rating": 4,
             "title": "Need to be able to delete devices",
             "product_name": "Amazon Alexa",
-            "reviewed_date": "2017-12-06T13:06:33.000Z"
+            "reviewed_date": "2018-01-01T00:00:00.000Z"
         }
     ]
 
