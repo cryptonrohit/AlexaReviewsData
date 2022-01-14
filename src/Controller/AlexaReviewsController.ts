@@ -4,6 +4,11 @@ import getAlexaReviewsServiceByRating from "../Services/GetAlexaReviewsServiceBy
 import getMonthlyAverageRatingsService from "../Services/GetMonthlyAverageRatingsService";
 import insertAlexaReviewsService from "../Services/InsertAlexaReviewsService";
 
+/**
+ * This is the Controller class which handles two operations:
+ * 1. communicates to the service with the Request data.
+ * 2. returns the Response with statusCode and data.
+ */
 class AlexaReviewsController {
     async insertReviewsData(req: Request, res: Response) {
         const uploadedData = req['files'].reviewsFile.data.toString();

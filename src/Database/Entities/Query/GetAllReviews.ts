@@ -5,7 +5,22 @@ import { Operation } from "../../../Model/Operation";
 import db from "../../Configuration";
 import { USER_REVIEWS_DATA } from "../../TableNames/TableNames";
 
+/**
+ * This file gets all the reviews(if no filters passed), or else get reviews on basis of filters.
+ */
 class GetAllReviews {
+    /**
+     * 
+     * @param dataToGet The filters which will be considered to fetch the data. Filters are : 
+     * storeType: The type of store i.e, either iTunes or GooglePlayStore
+     * rating: The rating of the app. It shoould be between 1-5.
+     * from: The date from which the data should be filtered
+     * to: The date till which the data should be filtered
+     * @returns 
+     * data: [], totalCount: 0, status: Operation.NoDataFound => When no data in DB
+     * data: data from DB, totalCount: no. of data from DB, status: Operation.Success => When data in DB
+     * status: Operation.Error => When any DB error occurs.
+     */
     async get(dataToGet: IGetUserReviewsModel): Promise<IGetUserReviewsResponseModel> {
         try {
             const queryBuilder = db.DBInstance().dbConnector

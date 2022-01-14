@@ -1,6 +1,10 @@
 import { Knex } from "knex";
 import { USER_REVIEWS_DATA } from "../TableNames/TableNames";
 
+/**
+ * This file creates the table with 7 columns :  
+ * review, author, review_source, rating, title, product_name, reviewed_date
+ */
 class UserReviewsTable {
     async create(dbConnector: Knex) {
         console.log(`[DB] Creating new table: ${USER_REVIEWS_DATA}`);

@@ -3,6 +3,10 @@ import { IHttpResponseModel } from "../Model/IHttpResponseModel";
 import { Operation } from "../Model/Operation";
 import { getHttpStatusData } from "../Shared/GetHttpStatus";
 
+/**
+ * The service file which takes data from controller to DB and vice-versa.
+ * This file helps to get the statusCode on the basis of DB operation received.
+ */
 class InsertAlexaReviewsService {
     async execute(uploadedData: string): Promise<IHttpResponseModel> {
         try {

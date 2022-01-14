@@ -4,7 +4,18 @@ import { Operation } from "../../../Model/Operation";
 import db from "../../Configuration";
 import { USER_REVIEWS_DATA } from "../../TableNames/TableNames";
 
+/**
+ * This file gets the review data on the basis of rating passed.
+ */
 class GetAllReviewsByRating {
+    /**
+     * 
+     * @param rating The rating of the app. It should be between 1-5.
+     * @returns 
+     * data: [], totalCount: 0, status: Operation.NoDataFound => When no data in DB
+     * data: data from DB, totalCount: no. of data from DB, status: Operation.Success => When data in DB
+     * status: Operation.Error => When any DB error occurs.
+     */
     async get(rating: number): Promise<IGetUserReviewsResponseModel> {
         try {
             const queryBuilder = db.DBInstance().dbConnector

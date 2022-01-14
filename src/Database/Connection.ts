@@ -1,6 +1,8 @@
 import Knex from "knex";
+/**
+ * This file is responsible for making connection to DB.
+ */
 
-// connection URL format = "postgres://user:password@host:port/database"
 class DBConnection {
     connectionToDB() {
         const configData = {

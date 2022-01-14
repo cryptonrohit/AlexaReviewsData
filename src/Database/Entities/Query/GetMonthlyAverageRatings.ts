@@ -3,7 +3,23 @@ import { Operation } from "../../../Model/Operation";
 import db from "../../Configuration";
 import { USER_REVIEWS_DATA } from "../../TableNames/TableNames";
 
+/**
+ * This file gets the monthly average rating of the store i.e, either iTunes or GooglePlayStore
+ */
 class GetMonthlyAverageRatings {
+    /**
+     * The raw query explanation:
+     * cast(Avg(rating) as decimal(10,2))        : First it calculates the avg of the ratings
+     *                                             and then cast the value to 2 decimal places.
+     * extract (month from reviewed_date)        : Extract the month out of the timestamp in DB.
+     * extract(year from reviewed_date)          : Extract the year out of the timestamp in DB.
+     * where review_source like '%${storeType}%' : Match the type of store passed in storeType.
+     * @param storeType The type of store i.e, either iTunes or GooglePlayStore
+     * @returns 
+     * data: [], status: Operation.NoDataFound => When no data in DB
+     * data: data from DB, status: Operation.Success => When data in DB
+     * status: Operation.Error => When any DB error occurs.
+     */
     async get(storeType: string): Promise<IGetUserReviewsResponseModel> {
         storeType = storeType ? storeType : "";
         try {

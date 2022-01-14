@@ -1,5 +1,10 @@
 import { Operation } from "../Model/Operation";
 
+/**
+ * This file basically gives the statusCodes according to the DB operation.
+ * @param operation The DB operation.
+ * @returns statusCode and the outputData
+ */
 export function getHttpStatusData(operation: Operation) {
     switch (operation) {
         case Operation.Success:
