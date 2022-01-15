@@ -25,7 +25,7 @@ async function main() {
 }
 
 app.post("/alexaReviews", insertReviewsDataMiddleware.validate, alexaReviewsController.insertReviewsData);
-app.get("/alexaReviews", getReviewsDataMiddleware.validate, alexaReviewsController.getReviewsData);
+app.get("/alexaReviews/fetchReviews", getReviewsDataMiddleware.validate, alexaReviewsController.getReviewsData);
 app.get("/alexaReviews/averageMonthlyRatings", getMonthlyAvgRatingsMiddleware.validate, alexaReviewsController.getMonthlyAverageRatings);
 app.get("/alexaReviews/:rating", getReviewsDataByRatingMiddleware.validate, alexaReviewsController.getReviewsDataByRating);
 
