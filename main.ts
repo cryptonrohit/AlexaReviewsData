@@ -26,7 +26,7 @@ async function main() {
     }
 }
 
-app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.post("/alexaReviews", insertReviewsDataMiddleware.validate, alexaReviewsController.insertReviewsData);
 app.get("/alexaReviews/fetchReviews", getReviewsDataMiddleware.validate, alexaReviewsController.getReviewsData);
