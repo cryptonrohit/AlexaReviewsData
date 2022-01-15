@@ -144,9 +144,8 @@
                     "404": {
                         "description": "When no data in DB.",
                         "schema": {
-                            "items": {
-                                "$ref": "#/definitions/NoDataFoundResponse"
-                            }
+                            "type": "array",
+                            "example": []
                         }
                     },
                     "500": {
