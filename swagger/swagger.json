@@ -84,9 +84,7 @@
                     "200": {
                         "description": "When data is there in DB.",
                         "schema": {
-                            "items": {
-                                "$ref": "#/definitions/GetAllReviewsResponse"
-                            }
+                            "$ref": "#/definitions/GetAllReviewsResponse"
                         }
                     },
                     "400":{
@@ -98,9 +96,7 @@
                     "404": {
                         "description": "When no data in DB.",
                         "schema": {
-                            "items": {
-                                "$ref": "#/definitions/NoDataFoundResponse"
-                            }
+                            "$ref": "#/definitions/NoDataFoundResponse"
                         }
                     },
                     "500": {
@@ -176,9 +172,7 @@
                     "200": {
                         "description": "When data is there in DB.",
                         "schema": {
-                            "items": {
-                                "$ref": "#/definitions/GetAllReviewsResponse"
-                            }
+                            "$ref": "#/definitions/GetAllReviewsResponse"
                         }
                     },
                     "400":{
@@ -190,9 +184,7 @@
                     "404": {
                         "description": "When no data in DB.",
                         "schema": {
-                            "items": {
-                                "$ref": "#/definitions/NoDataFoundResponse"
-                            }
+                            "$ref": "#/definitions/NoDataFoundResponse"
                         }
                     },
                     "500": {
@@ -209,18 +201,19 @@
     },
     "definitions": {
         "GetAllReviewsResponse": {
+            "type": "object",
             "properties": {
                 "totalCount": {
                     "type": "number"
                 },
                 "data": {
-                    "type": "array",
                     "$ref": "#/definitions/UserReviewsResponse"
 
                 }
             }
         },
         "GetAvgMonthlyRatingsResponse": {
+            "type": "object",
             "properties": {
                 "review_source": {
                     "type": "string"
@@ -237,32 +230,37 @@
             }
         },
         "UserReviewsResponse": {
-            "properties": {
-                "review": {
-                    "type": "string"
-                },
-                "author": {
-                    "type": "string"
-                },
-                "review_source": {
-                    "type": "string"
-                },
-                "rating": {
-                    "type": "string"
-                },
-                "title": {
-                    "type": "string"
-                },
-                "product_name": {
-                    "type": "string"
-                },
-                "reviewed_date": {
-                    "type": "string"
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "review": {
+                        "type": "string"
+                    },
+                    "author": {
+                        "type": "string"
+                    },
+                    "review_source": {
+                        "type": "string"
+                    },
+                    "rating": {
+                        "type": "number"
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "product_name": {
+                        "type": "string"
+                    },
+                    "reviewed_date": {
+                        "type": "string"
+                    }
                 }
             }
 
         },
         "NoDataFoundResponse": {
+            "type": "object",
             "properties": {
                 "totalCount": {
                     "type": "number",
