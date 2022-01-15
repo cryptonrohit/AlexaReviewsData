@@ -21,6 +21,8 @@
     "knex": "^0.95.15",
     "nodemon": "^2.0.15",
     "pg": "^8.7.1",
+    "swagger-jsdoc": "^6.1.0",
+    "swagger-ui-express": "^4.3.0",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   },

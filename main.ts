@@ -1,5 +1,7 @@
 import express from "express";
 import upload from "express-fileupload";
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger/swagger.json";
 const app = express();
 app.use(upload());
 const port = process.env.PORT || 8080;
@@ -23,6 +25,8 @@ async function main() {
         console.error("Issue getting DB up", error);
     }
 }
+
+app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.post("/alexaReviews", insertReviewsDataMiddleware.validate, alexaReviewsController.insertReviewsData);
 app.get("/alexaReviews/fetchReviews", getReviewsDataMiddleware.validate, alexaReviewsController.getReviewsData);

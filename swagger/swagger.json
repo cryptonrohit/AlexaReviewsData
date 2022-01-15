@@ -1,0 +1,282 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a swagger documentation for the application: storing/retrieving reviews for Alexa App.",
+        "version": "1.0.0",
+        "title": "Alexa Reviews API",
+        "contact": {
+            "email": "palrohit100@gmail.com"
+        }
+    },
+    "schemes": ["https"],
+    "host": "damp-reef-06935.herokuapp.com",
+    "paths" : {
+        "/alexaReviews" : {
+            "post" : {
+                "summary" : "Insert uploaded data",
+                "description": "Inserting the uploaded json file to DB ",
+                "produces": ["application/json"],
+                "consumes":["multipart/form-data"],
+                "parameters":[
+                    {
+                        "name": "reviewsFile",
+                        "in": "formData",     
+                        "description": "The file to be uploaded",
+                        "required": true,   
+                        "type": "file"
+                    }
+                ],                
+                "responses": {
+                    "201": {
+                        "description": "When data successfully inserted",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400":{
+                        "description": "When any validations for request fails.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "When any DB Error",
+                        "schema": {
+                            "$ref": "#/definitions/DBErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+
+        "/alexaReviews/fetchReviews" : {
+            "get" : {
+                "summary" : "Get all the reviews.",
+                "description": "Get all the reviews(if no filters passed), or else on basis of filters",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "storeType",
+                        "in": "query",     
+                        "description": "The type of store i.e, iTunes or GooglePlayStore",
+                        "type": "string"
+                    },
+                    {
+                        "name": "rating",
+                        "in": "query",     
+                        "description": "The rating of the app.",
+                        "type": "number"
+                    },
+                    {
+                        "name": "from",
+                        "in": "query",     
+                        "description": "The date from which search to be made",
+                        "type": "string"
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",     
+                        "description": "The date till which search to be made",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "When data is there in DB.",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/GetAllReviewsResponse"
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "When any validations for request fails.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "When no data in DB.",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/NoDataFoundResponse"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "When any DB Error",
+                        "schema": {
+                            "$ref": "#/definitions/DBErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+
+        "/alexaReviews/averageMonthlyRatings": {
+            "get" : {
+                "summary" : "Get all the month wise ratings.",
+                "description": "Get all the month wise ratings data on basis of store i.e, either iTunes or GooglePlayStore",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "storeType",
+                        "in": "query",     
+                        "description": "The type of store i.e, iTunes or GooglePlayStore",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "When data is there in DB.",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/GetAvgMonthlyRatingsResponse"
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "When any validations for request fails.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "When no data in DB.",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/NoDataFoundResponse"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "When any DB Error",
+                        "schema": {
+                            "$ref": "#/definitions/DBErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+
+        "/alexaReviews/{rating}": {
+            "get" : {
+                "summary" : "Get reviews data by rating",
+                "description": "Get all reviews on the basis of rating",
+                "produces": ["application/json"],
+                "parameters": [
+                    {
+                        "name": "rating",
+                        "in": "path",     
+                        "description": "The rating of the app.",
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "When data is there in DB.",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/GetAllReviewsResponse"
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "When any validations for request fails.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "When no data in DB.",
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/NoDataFoundResponse"
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "When any DB Error",
+                        "schema": {
+                            "$ref": "#/definitions/DBErrorResponse"
+                        }
+                    }
+                }
+            }
+        }     
+        
+        
+    },
+    "definitions": {
+        "GetAllReviewsResponse": {
+            "properties": {
+                "totalCount": {
+                    "type": "number"
+                },
+                "data": {
+                    "type": "array",
+                    "$ref": "#/definitions/UserReviewsResponse"
+
+                }
+            }
+        },
+        "GetAvgMonthlyRatingsResponse": {
+            "properties": {
+                "review_source": {
+                    "type": "string"
+                },
+                "averagerating": {
+                    "type": "number"
+                },
+                "month": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "number"
+                }
+            }
+        },
+        "UserReviewsResponse": {
+            "properties": {
+                "review": {
+                    "type": "string"
+                },
+                "author": {
+                    "type": "string"
+                },
+                "review_source": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "product_name": {
+                    "type": "string"
+                },
+                "reviewed_date": {
+                    "type": "string"
+                }
+            }
+
+        },
+        "NoDataFoundResponse": {
+            "properties": {
+                "totalCount": {
+                    "type": "number",
+                    "example": 0
+                },
+                "data": {
+                    "type": "array",
+                    "example": []
+                }
+            }
+        },
+        "DBErrorResponse": {
+            "type": "string"
+        }
+    }
+   
+}
