@@ -13,7 +13,7 @@ class GetAllReviews {
      * 
      * @param dataToGet The filters which will be considered to fetch the data. Filters are : 
      * storeType: The type of store i.e, either iTunes or GooglePlayStore
-     * rating: The rating of the app. It shoould be between 1-5.
+     * rating: The rating of the app. It should be between 1-5.
      * from: The date from which the data should be filtered
      * to: The date till which the data should be filtered
      * @returns 

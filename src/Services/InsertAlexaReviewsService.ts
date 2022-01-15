@@ -24,7 +24,7 @@ class InsertAlexaReviewsService {
             const httpStatusData =  getHttpStatusData(response);
             return {data: httpStatusData.outputData, status: httpStatusData.statusCode};
         } catch (error) {
-            console.log("Some issue occured while parsing with error: ", error);
+            console.log("Some issue occurred while parsing with error: ", error);
             const httpStatusData = getHttpStatusData(Operation.BadRequest);
             return {data: httpStatusData.outputData, status: httpStatusData.statusCode};
         }        

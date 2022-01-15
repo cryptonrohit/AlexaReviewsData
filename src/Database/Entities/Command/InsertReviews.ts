@@ -12,7 +12,7 @@ class InsertReviews {
      * @param userReviewsData The data which is uploaded
      * @returns 
      * 1. Operation.Created => When uploaded data successfully inserted
-     * 2. Opeartion.Error => When any DB issue occurs.
+     * 2. Operation.Error => When any DB issue occurs.
      */
     async insert(userReviewsData: IInsertUserReviewsModel[]): Promise<Operation> {
         try {
