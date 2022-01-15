@@ -167,7 +167,8 @@
                 "parameters": [
                     {
                         "name": "rating",
-                        "in": "path",     
+                        "in": "path",
+                        "required": true, 
                         "description": "The rating of the app.",
                         "type": "number"
                     }
