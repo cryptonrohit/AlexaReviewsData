@@ -8,7 +8,7 @@ Store reviews of alexa app for itunes and playstore.
 POSTMAN OPERATIONS IN DETAILS:
 1. POST (To insert uploaded reviews data):
              - POST URL: https://damp-reef-06935.herokuapp.com/alexaReviews
-             - In Body > Select form-data > give key name as " reviewsFile" > in value upload the "alexa.json" file attached.
+             - In Body > Select form-data > Select File in key section> give key name as " reviewsFile" > in value upload the "alexa.json" file attached.
 2. GET (Get all the reviews(if no filters passed), or else on basis of filters):
              - GET URL: https://damp-reef-06935.herokuapp.com/alexaReviews/fetchReviews
              - In Query params > filters passed are:
